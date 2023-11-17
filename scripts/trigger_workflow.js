@@ -45,7 +45,6 @@ const getLatestVersion = async () => {
 }
 
 const imageExists = async (version) => {
-  const token = await getToken();
   const req = await fetch(`https://ghcr.io/v2/popsql/prestodb-sandbox/manifests/${version}`, {
     headers: {
       Authorization: `Bearer ${ghToken}`
