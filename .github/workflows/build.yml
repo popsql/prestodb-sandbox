@@ -3,7 +3,7 @@ name: Docker Build
 on:
   workflow_dispatch:
     inputs:
-      prestoVersion:
+      version:
         description: 'Presto version to build'
         required: true
         type: string
@@ -16,6 +16,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "Building prestodb-sandbox:${{ inputs.version }}"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Docker meta
@@ -24,7 +25,7 @@ jobs:
         with:
           images: ghcr.io/popsql/prestodb-sandbox
           tags: |
-            type=raw,value=${{ inputs.prestoVersion }}
+            type=raw,value=${{ inputs.version }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
