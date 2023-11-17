@@ -55,7 +55,11 @@ const imageExists = async (version) => {
 
 (async () => {
   const version = await getLatestVersion();
+  console.log(`Latest version: ${version}`);
+
   const check = await imageExists(version);
+  console.log(`Build new image: ${!check}`);
+
   if (!check) {
     const req = await fetch(
       'https://api.github.com/repos/popsql/prestodb-sandbox/actions/workflows/build.yml/dispatches',
