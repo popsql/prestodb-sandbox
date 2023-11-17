@@ -5,6 +5,8 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: read
 
 jobs:
   check:
@@ -17,3 +19,5 @@ jobs:
         with:
           node-version: 20.x
       - run: node scripts/trigger_workflow.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
