@@ -60,14 +60,15 @@ const imageExists = async (version) => {
     const req = await fetch(
       'https://api.github.com/repos/popsql/prestodb-sandbox/actions/workflows/build.yml/dispatches',
       {
+        body: JSON.stringify({
+          version,
+        }),
         headers: {
           Accept: 'application/vnd.github+json',
           Authorization: `Bearer ${ghToken}`,
           'X-GitHub-Api-Version': '2022-11-28'
         },
-        body: JSON.stringify({
-          version,
-        }),
+        method: 'POST',
       },
     );
     if (!req.ok) {
