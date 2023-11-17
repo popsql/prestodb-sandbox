@@ -61,7 +61,10 @@ const imageExists = async (version) => {
       'https://api.github.com/repos/popsql/prestodb-sandbox/actions/workflows/build.yml/dispatches',
       {
         body: JSON.stringify({
-          version,
+          ref: 'main',
+          inputs: {
+            version,
+          },
         }),
         headers: {
           Accept: 'application/vnd.github+json',
