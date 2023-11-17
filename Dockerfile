@@ -23,6 +23,8 @@ RUN apk add --no-cache \
   && mkdir -p ${PRESTO_HOME}/etc \
   && mkdir -p ${PRESTO_HOME}/etc/catalog \
   && mkdir -p /var/lib/presto/data \
+  && ln -s /opt/presto-cli /usr/local/bin/presto-cli \
+  && ln -s /opt/presto-cli /usr/local/bin/presto \
   && apk del curl tar
 
 ADD etc etc/
