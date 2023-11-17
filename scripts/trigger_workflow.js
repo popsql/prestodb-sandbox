@@ -72,7 +72,8 @@ const imageExists = async (version) => {
       },
     );
     if (!req.ok) {
-      throw new Error('Could not trigger workflow');
+      const resp = await req.text();
+      throw new Error(`Could not trigger workflow: ${resp}`);
     }
     console.log(`Triggered workflow for ${version}`);
   }
