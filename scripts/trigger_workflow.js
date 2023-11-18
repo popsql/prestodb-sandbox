@@ -44,14 +44,24 @@ const getLatestVersion = async () => {
   throw new Error('Could not determine latest version');
 }
 
+const getToken = async () => {
+  const req = await fetch(`https://ghcr.io/token?scope=repository:popsql/prestodb-sandbox:pull`);
+  const json = await req.json();
+  return json.token;
+};
+
 const imageExists = async (version) => {
+  const token = await getToken();
   const req = await fetch(`https://ghcr.io/v2/popsql/prestodb-sandbox/manifests/${version}`, {
     headers: {
-      Authorization: `Bearer ${ghToken}`
+      Authorization: `Bearer ${token}`
     }
   });
   if (!req.ok) {
-    console.log(await req.json());
+    const res = await req.json();
+    if (res.errors?.[0]?.code === 'DENIED') {
+      throw new Error('Could not fetch image manifest, check that token used is valid');
+    }
   }
   return req.ok;
 }
