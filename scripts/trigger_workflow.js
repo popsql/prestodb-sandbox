@@ -67,6 +67,7 @@ const imageExists = async (version) => {
         body: JSON.stringify({
           ref: 'main',
           inputs: {
+            latest: true,
             version,
           },
         }),
