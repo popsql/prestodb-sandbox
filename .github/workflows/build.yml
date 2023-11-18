@@ -21,7 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Building prestodb-sandbox:${{ inputs.version }}"
+      - run: echo "Building prestodb-sandbox=${{ inputs.version }}, latest=${{ inputs.latest }}"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Docker meta

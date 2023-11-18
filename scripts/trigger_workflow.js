@@ -50,6 +50,9 @@ const imageExists = async (version) => {
       Authorization: `Bearer ${ghToken}`
     }
   });
+  if (!req.ok) {
+    console.log(await req.json());
+  }
   return req.ok;
 }
 
