@@ -16,6 +16,10 @@ presto> SHOW CATALOGS;
 (5 rows)
 ```
 
+Creation of images for new versions of Presto happens autonomously, where a
+workflow runs once a day, and if a new version is detected, then it will be
+built and pushed, with the `latest` tag pointing at this new version.
+
 ## Quickstart
 
 ### Running the server
