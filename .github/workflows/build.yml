@@ -28,7 +28,7 @@ jobs:
         id: properties
         run: |
           version=${{ inputs.version }}
-          if (( $(echo "${VERSION} > 0.281" | bc -l) )); then
+          if (( $(echo "${version} > 0.281" | bc -l) )); then
             platform="linux/amd64,linux/arm64"
           else
             platform="linux/amd64"
