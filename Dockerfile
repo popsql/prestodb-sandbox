@@ -3,11 +3,8 @@ FROM amazoncorretto:11-alpine
 EXPOSE 8080
 
 ENV PRESTO_HOME=/opt/presto-server
-WORKDIR /opt/presto-server
 
-CMD ["/bin/sh", "-c", "./bin/launcher run"]
-
-ARG PRESTO_VERSION=0.281
+ARG PRESTO_VERSION
 ARG PRESTO_PKG=presto-server-${PRESTO_VERSION}.tar.gz
 ARG PRESTO_PKG_URL=https://repo1.maven.org/maven2/com/facebook/presto/presto-server/${PRESTO_VERSION}/${PRESTO_PKG}
 
@@ -27,4 +24,7 @@ RUN apk add --no-cache \
   && ln -s /opt/presto-cli /usr/local/bin/presto \
   && apk del curl tar
 
-ADD etc etc/
+ADD etc /opt/presto-server/etc/
+
+WORKDIR /opt/presto-server
+CMD ["/bin/sh", "-c", "./bin/launcher run"]
