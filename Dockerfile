@@ -12,6 +12,7 @@ RUN apk add --no-cache \
     curl \
     gzip \
     less \
+    python3 \
     tar \
   && curl -o ${PRESTO_PKG} ${PRESTO_PKG_URL} \
   && tar -zxf ${PRESTO_PKG} \
