@@ -24,6 +24,17 @@ jobs:
       - run: echo "Building prestodb-sandbox=${{ inputs.version }}, latest=${{ inputs.latest }}"
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set build properties
+        id: properties
+        run: |
+          version=${{ inputs.version }}
+          if (( $(echo "${VERSION} > 0.281" | bc -l) )); then
+            platform="linux/amd64,linux/arm64"
+          else
+            platform="linux/amd64"
+          fi
+          echo "platforms=${platform}"
+          echo "platforms=${platform}" >> $GITHUB_OUTPUT
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
@@ -46,7 +57,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ steps.properties.outputs.platforms }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
