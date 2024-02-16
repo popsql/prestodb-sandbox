@@ -17,24 +17,29 @@ const getLatestVersion = async () => {
   const json = await req.json();
   const versions = json.reduce((acc, { ref }) => {
     const version = ref.replace('refs/tags/', '');
-    if (!Number.isNaN(Number(version))) {
-      acc.push(version);
+    const parts = version.split('.');
+    for (const part of parts) {
+      if (Number.isNaN(Number(part))) {
+        return acc;
+      }
     }
+    acc.push(version);
     return acc;
   }, []).sort((a, b) => {
     const splitA = a.split('.').map(Number);
     const splitB = b.split('.').map(Number);
 
-    for (let i = 0; i < splitA.length; i++) {
-        if (splitA[i] > splitB[i]) {
+    for (let i = 0; i < Math.max(splitA.length, splitB.length); i++) {
+        if (!splitB[i] || splitA[i] > splitB[i]) {
           return -1;
         }
-        if (splitA[i] < splitB[i]) {
+        if (!$splitA[i] || splitA[i] < splitB[i]) {
           return 1;
         }
     }
     return 0;
   });
+
   for (const version of versions) {
     const req = await fetch(`https://repo1.maven.org/maven2/com/facebook/presto/presto-server/${version}`);
     if (req.ok) {
