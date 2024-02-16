@@ -28,10 +28,10 @@ jobs:
         id: properties
         run: |
           version=${{ inputs.version }}
-          if (( $(echo "${version} > 0.281" | bc -l) )); then
-            platform="linux/amd64,linux/arm64"
-          else
+          if [ ${version} = "0.281" ] || [ "${version}" = "0.280" ]; then
             platform="linux/amd64"
+          else
+            platform="linux/amd64,linux/arm64"
           fi
           echo "platforms=${platform}"
           echo "platforms=${platform}" >> $GITHUB_OUTPUT
