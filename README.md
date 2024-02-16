@@ -18,7 +18,14 @@ presto> SHOW CATALOGS;
 
 Creation of images for new versions of Presto happens autonomously, where a
 workflow runs once a day, and if a new version is detected, then it will be
-built and pushed, with the `latest` tag pointing at this new version.
+built and pushed, with the `latest` tag pointing at this new version. To
+detect a new version, we:
+
+1. Get the latest [tag](https://github.com/prestodb/presto/tags) for regular version
+2. Check if that version exists on [maven](https://mvnrepository.com/artifact/com.facebook.presto/presto-main)
+3. Check that we do not have a Docker build for that version
+
+If (2) or (3) are not true, then no new build is kicked off.
 
 ## Quickstart
 
