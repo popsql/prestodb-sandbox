@@ -59,6 +59,7 @@ const imageExists = async (version) => {
   const token = await getToken();
   const req = await fetch(`https://ghcr.io/v2/popsql/prestodb-sandbox/manifests/${version}`, {
     headers: {
+      Accept: 'application/vnd.oci.image.index.v1+json',
       Authorization: `Bearer ${token}`
     }
   });
