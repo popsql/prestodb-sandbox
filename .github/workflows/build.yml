@@ -39,7 +39,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/timescale/prestodb-sandbox
+          images: |
+            ghcr.io/popsql/prestodb-sandbox
+            ghcr.io/timescale/prestodb-sandbox
           tags: |
             type=raw,value=${{ inputs.version }}
             type=raw,value=latest,enable=${{ inputs.latest == true }}
