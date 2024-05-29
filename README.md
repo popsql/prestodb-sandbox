@@ -34,7 +34,7 @@ If (2) or (3) are not true, then no new build is kicked off.
 To launch the image:
 
 ```bash
-docker run -p 8080:8080 --name presto ghcr.io/popsql/prestodb-sandbox
+docker run -p 8080:8080 --name presto ghcr.io/timescale/prestodb-sandbox
 ```
 
 Wait for the following message log line:

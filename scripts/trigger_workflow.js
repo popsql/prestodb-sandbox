@@ -50,14 +50,14 @@ const getLatestVersion = async () => {
 }
 
 const getToken = async () => {
-  const req = await fetch(`https://ghcr.io/token?scope=repository:popsql/prestodb-sandbox:pull`);
+  const req = await fetch(`https://ghcr.io/token?scope=repository:timescale/prestodb-sandbox:pull`);
   const json = await req.json();
   return json.token;
 };
 
 const imageExists = async (version) => {
   const token = await getToken();
-  const req = await fetch(`https://ghcr.io/v2/popsql/prestodb-sandbox/manifests/${version}`, {
+  const req = await fetch(`https://ghcr.io/v2/timescale/prestodb-sandbox/manifests/${version}`, {
     headers: {
       Accept: 'application/vnd.oci.image.index.v1+json',
       Authorization: `Bearer ${token}`
@@ -81,7 +81,7 @@ const imageExists = async (version) => {
 
   if (!check) {
     const req = await fetch(
-      'https://api.github.com/repos/popsql/prestodb-sandbox/actions/workflows/build.yml/dispatches',
+      'https://api.github.com/repos/timescale/prestodb-sandbox/actions/workflows/build.yml/dispatches',
       {
         body: JSON.stringify({
           ref: 'main',
